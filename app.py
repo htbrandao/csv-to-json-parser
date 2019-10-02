@@ -8,9 +8,9 @@ import pandas as pd
 import csv
 from elasticsearch import Elasticsearch, ElasticsearchException, helpers
 
-# ========= #
-# functions #
-# ========= #
+# ==================================================================== #
+# functions
+# ==================================================================== #
 
 def logger(name: str):
     logger = logging.getLogger(name)
@@ -72,31 +72,41 @@ def sentRate(total: int, good: int):
     logger.info('Delivery rate {}%'.format(acc))
     return acc
 
-# ================ #
-# global variables #
-# ================ #
+# ==================================================================== #
+# global variables
+# ==================================================================== #
 
-csv_file = '/home/f4119597/Downloads/peopleAnalytics/ListaGeralDitec-VRS20191001/QueryDB2TAO-GERAL-DITEC-VRS20191001.csv'
-elastic_hosts = ['localhost:9200']
 loggername = 'people_analytics'
 
-fields = ['CAPACIDADE', 'CONHECIMENTO', 'FERRAMENTA', 'INTERESSE', 'MOTIVACAO', 'REALIZACAO', 'FORMACAO_SUPERIOR']
-rltd_capacidade = ['NOME', 'ATIVO', 'CODIGO']
-rltd_conhecimento = ['NOME', 'CODIGO', 'NIVEL', 'CODIGO_AREA', 'CODIGO_SUB_AREA']
-rltd_ferramenta = ['NOME', 'CODIGO', 'ATIVO']
-rltd_interesse = ['NOME', 'CODIGO']
-rltd_motivacao = ['NOME', 'CODIGO']
-rltd_realizacao = ['NOME', 'CODIGO']
-rltd_form_superior = ['NOME', 'CODIGO', 'NIVEL', 'DATA_FIM', 'MODALIDADE', 'NATUREZA', 'URL', 'ESTADO', 'NOME_INSTITUICAO_ENSINO']
-rltds = [rltd_capacidade, rltd_conhecimento, rltd_ferramenta, rltd_interesse, rltd_motivacao, rltd_realizacao, rltd_form_superior]
-field_map = dict(zip(fields, rltds))
+csv_file = '/home/f4119597/Downloads/peopleAnalytics/ListaGeralDitec-VRS20191001/QueryDB2TAO-GERAL-DITEC-VRS20191001.csv'
+csv_file_delimiter = ';'
+csv_reader_encoding = 'cp1252'
+
+elastic_hosts = ['localhost:9200']
+es_index = 'people_analytics'
+es_doc_type = 'curriculo'
+es_id_key = 'matricula'
+
+mapping = {
+    'CAPACIDADE': ['NOME', 'ATIVO', 'CODIGO'],
+    'CONHECIMENTO': ['NOME', 'CODIGO', 'NIVEL', 'CODIGO_AREA', 'CODIGO_SUB_AREA'],
+    'FERRAMENTA': ['NOME', 'CODIGO', 'ATIVO'],
+    'INTERESSE': ['NOME', 'CODIGO'],
+    'MOTIVACAO': ['NOME', 'CODIGO'],
+    'REALIZACAO': ['NOME', 'CODIGO'],
+    'FORMACAO_SUPERIOR': ['NOME',
+    'CODIGO', 'NIVEL', 'DATA_FIM', 'MODALIDADE', 'NATUREZA', 'URL', 'ESTADO', 'NOME_INSTITUICAO_ENSINO']
+    }
 
 id_column = 'MATRICULA_FUNCIONARIO'
 outter_key = 'curriculo'
 
-# ==== #
-# main #
-# ==== #
+
+
+
+# ==================================================================== #
+# main
+# ==================================================================== #
 
 
 if __name__ == '__main__':
@@ -105,9 +115,9 @@ if __name__ == '__main__':
     logger.info('START PROCESS')
     ts1 = time()
     es = Elasticsearch(hosts=elastic_hosts)
-    df = load_csv(filepath=csv_file, delimiter=';', header='infer', encoding='cp1252')
-    obj = curriculum_json_generator(df=df, field_map=field_map, id_column=id_column, outter_key=outter_key)
-    bulk = elastic_bulk_index(index='people_analytics', docType='curriculo', data=obj, _id_key='matricula', elastic=es)
+    df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
+    obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key)
+    bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
     sr = sentRate(total=len(obj), good=bulk)
     logger.info('Runtime: {} seconds'.format(time()-ts1))
     logger.info('END PROCESS')
