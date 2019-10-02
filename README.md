@@ -13,7 +13,8 @@ $ ./app.py --param-file=$PARAM_FILE_PATH
 
 ```
 
-## Parameters
+## Category and parameters
+
 - app: `loggername`
 
 - csv file: `csv_file`, `csv_file_delimiter`, `csv_reader_encoding`
