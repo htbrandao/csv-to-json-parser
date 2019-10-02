@@ -4,13 +4,11 @@ Parses data from CSV file into JSON format
 Install dependencies
 ```
 $ pip3 install -r requirements.txt
-
 ```
 
 Run it
 ```
 $ ./app.py --param-file=$PARAM_FILE_PATH
-
 ```
 
 ## Category and parameters
