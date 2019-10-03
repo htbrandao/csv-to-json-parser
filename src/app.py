@@ -13,13 +13,15 @@ from elasticsearch import Elasticsearch, ElasticsearchException, helpers
 # ==================================================================== #
 
 def logger(name: str):
+    
+    log_format = '%(levelname)s %(asctime)s %(name)s %(message)s'
+    logging.basicConfig(filename='app.log', filemode='a', format=log_format)
+    
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
-    logging.basicConfig(filename='app.log', filemode='w')
     handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s %(message)s')
-    handler.setFormatter(formatter)
     logger.addHandler(handler)
+    
     return logger
 
 def load_csv(filepath: str, delimiter: str, header='infer', encoding='utf-8'):
