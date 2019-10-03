@@ -36,9 +36,9 @@ def id_count(df, id_column: str):
 def single_id_df(df, id_column: str, id_value: any):
     return df[df[id_column] == id_value]
 
-def extract_features_by_category(single_id_df, category: str, related_features: list):
+def extract_features_by_category(single_id_df, category: str, related_features: list, category_column: str):
     lc = [ [str(reg[i]).rstrip().lower() for i in range(len(reg)) ] 
-          for reg in single_id_df[single_id_df['TIPO'] == category][related_features].values ]
+          for reg in single_id_df[single_id_df[category_column] == category][related_features].values ]
     related_features = [feat.lower() for feat in related_features]
     out = []
     for reg in lc:
@@ -47,7 +47,7 @@ def extract_features_by_category(single_id_df, category: str, related_features: 
     category_dict = {category_key: out}
     return category_dict
 
-def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: str):
+def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: str, category_column: str):
     id_list = find_ids(df=df, id_column=id_column)
     logger.info('Found \'{}\' units on \'{}\' to process'.format(len(id_list), id_column))
     out = []
@@ -56,7 +56,10 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
         f_df = single_id_df(df=df, id_column=id_column, id_value=f_id)
         for key in field_map.keys():
             try:
-                f_info[outter_key][key.lower()] = extract_features_by_category(single_id_df=f_df, category=key, related_features=field_map[key])[key.lower()]
+                f_info[outter_key][key.lower()] = extract_features_by_category(single_id_df=f_df,
+                                                                                category=key,
+                                                                                category_column=category_column,
+                                                                                related_features=field_map[key])[key.lower()]
             except:
                 logger.error('id: \'{}\' key: \'{}\''.format(f_id, key))
         out.append(f_info)
@@ -99,6 +102,7 @@ elastic_hosts = config['elastic_hosts']
 es_index = config['es_index']
 es_doc_type = config['es_doc_type']
 es_id_key = config['es_id_key']
+category_column = config['category_column']
 mapping = config['mapping']
 id_column = config['id_column']
 outter_key = config['outter_key']
@@ -118,7 +122,7 @@ if __name__ == '__main__':
 
     for csv_file in csv_files:
         df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
-        obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key)
+        obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key, category_column=category_column)
         bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
         sr = sentRate(total=len(obj), good=bulk)
         dump_json(obj=obj, yes_or_no=dump)

@@ -12,6 +12,7 @@
 "es_id_key" : "matricula",
 "id_column" : "MATRICULA_FUNCIONARIO",
 "outter_key" : "curriculo",
+"category_column": "TIPO",
 "mapping" : {
     "CAPACIDADE": ["NOME", "ATIVO", "CODIGO"],
     "CONHECIMENTO": ["NOME", "CODIGO", "NIVEL", "CODIGO_AREA", "CODIGO_SUB_AREA"],
