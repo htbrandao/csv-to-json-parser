@@ -1,5 +1,5 @@
 {"loggername" : "people_analytics",
-"csv_file" : "/home/f4119597/Downloads/temp-master/res_final_query_all.csv",
+"csv_file" : ["/home/f4119597/Downloads/temp-master/res_final_query_all.csv"],
 "csv_file_delimiter" : ";",
 "csv_reader_encoding" : "utf-8",
 "elastic_hosts" : ["localhost:9200"],

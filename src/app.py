@@ -91,7 +91,7 @@ with open('config.json') as config_file:
     config = json.load(config_file)
 
 loggername = config['loggername']
-csv_file = config['csv_file']
+csv_files = config['csv_file']
 csv_file_delimiter = config['csv_file_delimiter']
 csv_reader_encoding = config['csv_reader_encoding']
 elastic_hosts = config['elastic_hosts']
@@ -114,11 +114,13 @@ if __name__ == '__main__':
     ts1 = time()
     
     es = Elasticsearch(hosts=elastic_hosts)
-    df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
-    obj = curriculum_json_generator(df=df[:100], field_map=mapping, id_column=id_column, outter_key=outter_key)
-    bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
-    sr = sentRate(total=len(obj), good=bulk)
-    export_json(obj=obj, yes_or_no=dump)
+
+    for csv_file in csv_files:
+        df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
+        obj = curriculum_json_generator(df=df[:100], field_map=mapping, id_column=id_column, outter_key=outter_key)
+        bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
+        sr = sentRate(total=len(obj), good=bulk)
+        export_json(obj=obj, yes_or_no=dump)
 
     logger.info('Runtime: {0:.2f} seconds'.format(time()-ts1))
     logger.info('END PROCESS')
