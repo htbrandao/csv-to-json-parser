@@ -74,7 +74,7 @@ def sentRate(total: int, good: int):
     logger.info('Delivery rate {}%'.format(acc))
     return acc
 
-def export_json(obj: dict, yes_or_no: str):
+def dump_json(obj: dict, yes_or_no: str):
     if yes_or_no.lower() == "yes":
         from datetime import datetime
         file_name = 'dump_{}.json'.format(datetime.now()).replace(" ", "_")
@@ -120,7 +120,7 @@ if __name__ == '__main__':
         obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key)
         bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
         sr = sentRate(total=len(obj), good=bulk)
-        export_json(obj=obj, yes_or_no=dump)
+        dump_json(obj=obj, yes_or_no=dump)
 
     logger.info('Runtime: {0:.2f} seconds'.format(time()-ts1))
     logger.info('END PROCESS')
