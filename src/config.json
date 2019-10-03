@@ -1,5 +1,9 @@
 {"loggername" : "people_analytics",
-"csv_file" : ["/home/f4119597/Downloads/temp-master/res_final_query_all.csv"],
+"csv_file" : ["/home/f4119597/Downloads/Arquivos_Finais/201910031133__0000000_A_1999999.csv",
+                "/home/f4119597/Downloads/Arquivos_Finais/201910031134__2000000_A_5999999.csv",
+                "/home/f4119597/Downloads/Arquivos_Finais/201910031136__6000000_A_6999999.csv",
+                "/home/f4119597/Downloads/Arquivos_Finais/201910031137__7000000_A_8999999.csv",
+                "/home/f4119597/Downloads/Arquivos_Finais/201910031138__9000000_A_9999999.csv"],
 "csv_file_delimiter" : ";",
 "csv_reader_encoding" : "utf-8",
 "elastic_hosts" : ["localhost:9200"],
@@ -15,7 +19,8 @@
     "INTERESSE": ["NOME", "CODIGO"],
     "MOTIVACAO": ["NOME", "CODIGO"],
     "REALIZACAO": ["NOME", "CODIGO"],
-    "FORMACAO_SUPERIOR": ["NOME", "CODIGO", "NIVEL", "DATA_FIM", "MODALIDADE", "NATUREZA", "URL", "ESTADO", "NOME_INSTITUICAO_ENSINO"]
+    "FORMACAO_SUPERIOR": ["NOME", "CODIGO", "NIVEL", "DATA_FIM", "MODALIDADE", "NATUREZA", "URL", "ESTADO", "NOME_INSTITUICAO_ENSINO"],
+    "APRESENTACAO": ["INDICADOR_APRESENTACAO", "APRESENTACAO"]
     },
 "dump": "No"
 }

@@ -24,6 +24,7 @@ def logger(name: str):
     return logger
 
 def load_csv(filepath: str, delimiter: str, header='infer', encoding='utf-8'):
+    logger.info('Loading {}'.format(filepath))
     return pd.read_csv(filepath, delimiter=delimiter, header=header, encoding=encoding, dtype=object)
 
 def find_ids(df, id_column: str):

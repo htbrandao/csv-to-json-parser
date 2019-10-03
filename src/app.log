@@ -1,2 +1,24 @@
-INFO 2019-10-03 14:01:01,246 people_analytics START PROCESS
-INFO 2019-10-03 14:01:02,844 people_analytics Found '3759' units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-03 14:09:44,038 people_analytics START PROCESS
+INFO 2019-10-03 14:09:44,325 people_analytics Found '645' units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-03 14:09:53,933 people_analytics Generated: '645'. Delta: '0'
+INFO 2019-10-03 14:09:54,853 people_analytics Delivery rate 100.0%
+INFO 2019-10-03 14:09:54,853 people_analytics Runtime: 10.81 seconds
+INFO 2019-10-03 14:09:54,853 people_analytics END PROCESS
+INFO 2019-10-03 14:11:41,271 people_analytics START PROCESS
+INFO 2019-10-03 14:11:41,560 people_analytics Found '645' units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-03 14:11:50,498 people_analytics Generated: '645'. Delta: '0'
+INFO 2019-10-03 14:11:51,230 people_analytics Delivery rate 100.0%
+INFO 2019-10-03 14:11:51,799 people_analytics Found '1305' units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-03 14:12:18,097 people_analytics Generated: '1305'. Delta: '0'
+INFO 2019-10-03 14:12:19,901 people_analytics Delivery rate 100.0%
+INFO 2019-10-03 14:12:20,255 people_analytics Found '616' units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-03 14:12:29,264 people_analytics Generated: '616'. Delta: '0'
+INFO 2019-10-03 14:12:30,002 people_analytics Delivery rate 100.0%
+INFO 2019-10-03 14:12:30,350 people_analytics Found '741' units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-03 14:12:41,536 people_analytics Generated: '741'. Delta: '0'
+INFO 2019-10-03 14:12:42,361 people_analytics Delivery rate 100.0%
+INFO 2019-10-03 14:12:42,576 people_analytics Found '447' units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-03 14:12:48,223 people_analytics Generated: '447'. Delta: '0'
+INFO 2019-10-03 14:12:48,750 people_analytics Delivery rate 100.0%
+INFO 2019-10-03 14:12:48,750 people_analytics Runtime: 67.48 seconds
+INFO 2019-10-03 14:12:48,750 people_analytics END PROCESS
