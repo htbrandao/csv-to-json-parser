@@ -67,10 +67,7 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
     return out
 
 def elastic_bulk_index (index: str, docType: str, data: list, elastic, _id_key: str):
-    bulk = []
-    for reg in data:
-        k = reg[_id_key]
-        bulk.append({"_index": index, "_type": docType, "_id": k, "_source": reg})
+    bulk = [{"_index": index, "_type": docType, "_id": reg[_id_key], "_source": reg} for reg in data]
     return helpers.bulk(client=elastic, actions=bulk)[0]
 
 def sentRate(total: int, good: int):
@@ -115,17 +112,14 @@ dump = config['dump']
 if __name__ == '__main__':
 
     logger = logger(loggername)
-    logger.info('START PROCESS')
+    logger.info('START PARSING')
     ts1 = time()
-    
     es = Elasticsearch(hosts=elastic_hosts)
-
     for csv_file in csv_files:
         df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
         obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key, category_column=category_column)
         bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
         sr = sentRate(total=len(obj), good=bulk)
         dump_json(obj=obj, yes_or_no=dump)
-
     logger.info('Runtime: {0:.2f} seconds'.format(time()-ts1))
-    logger.info('END PROCESS')
+    logger.info('END PARSING')
