@@ -72,34 +72,31 @@ def sentRate(total: int, good: int):
     logger.info('Delivery rate {}%'.format(acc))
     return acc
 
+def export_json(obj: dict, file_name: str):
+    with open('curriculum.json', 'w') as json_file:
+        json.dump(obj, json_file)
+
 # ==================================================================== #
-# global variables
+# config variables
 # ==================================================================== #
+with open('config.json') as config_file:
+    config = json.load(config_file)
 
-loggername = 'people_analytics'
+loggername = config['loggername']
 
-csv_file = '/home/f4119597/Downloads/peopleAnalytics/ListaGeralDitec-VRS20191001/QueryDB2TAO-GERAL-DITEC-VRS20191001.csv'
-csv_file_delimiter = ';'
-csv_reader_encoding = 'cp1252'
+csv_file = config['csv_file']
+csv_file_delimiter = config['csv_file_delimiter']
+csv_reader_encoding = config['csv_reader_encoding']
 
-elastic_hosts = ['localhost:9200']
-es_index = 'people_analytics'
-es_doc_type = 'curriculo'
-es_id_key = 'matricula'
+elastic_hosts = config['elastic_hosts']
+es_index = config['es_index']
+es_doc_type = config['es_doc_type']
+es_id_key = config['es_id_key']
 
-mapping = {
-    'CAPACIDADE': ['NOME', 'ATIVO', 'CODIGO'],
-    'CONHECIMENTO': ['NOME', 'CODIGO', 'NIVEL', 'CODIGO_AREA', 'CODIGO_SUB_AREA'],
-    'FERRAMENTA': ['NOME', 'CODIGO', 'ATIVO'],
-    'INTERESSE': ['NOME', 'CODIGO'],
-    'MOTIVACAO': ['NOME', 'CODIGO'],
-    'REALIZACAO': ['NOME', 'CODIGO'],
-    'FORMACAO_SUPERIOR': ['NOME',
-    'CODIGO', 'NIVEL', 'DATA_FIM', 'MODALIDADE', 'NATUREZA', 'URL', 'ESTADO', 'NOME_INSTITUICAO_ENSINO']
-    }
+mapping = config['mapping']
 
-id_column = 'MATRICULA_FUNCIONARIO'
-outter_key = 'curriculo'
+id_column = config['id_column']
+outter_key = config['outter_key']
 
 # ==================================================================== #
 # main

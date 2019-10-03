@@ -8,10 +8,10 @@ $ pip3 install -r requirements.txt
 
 Run it
 ```
-$ ./app.py --config=$CONFIG_FILE_PATH
+$ ./app.py
 ```
 
-## Category and parameters
+## Config file (`config.json`)
 
 - app: `loggername`
 
@@ -22,4 +22,3 @@ $ ./app.py --config=$CONFIG_FILE_PATH
 - columns: `field_map`, `id_column`
 
 - output json: `outter_key`
-

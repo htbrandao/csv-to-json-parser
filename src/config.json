@@ -1,27 +1,20 @@
-{
-    "loggername" : "people_analytics",
-    
-    "csv_file" : "/home/f4119597/Downloads/peopleAnalytics/ListaGeralDitec-VRS20191001/QueryDB2TAO-GERAL-DITEC-VRS20191001.csv",
-    "csv_file_delimiter" : ";",
-    "csv_reader_encoding" : "cp1252",
-
-    "elastic_hosts" : ["localhost:9200"],
-    "es_index" : "people_analytics",
-    "es_doc_type" : "curriculo",
-    "es_id_key" : "matricula",
-
-    "id_column" : "MATRICULA_FUNCIONARIO",
-    
-    "outter_key" : "curriculo",
-
-    "mapping" : {
-        "CAPACIDADE": ["NOME", "ATIVO", "CODIGO"],
-        "CONHECIMENTO": ["NOME", "CODIGO", "NIVEL", "CODIGO_AREA", "CODIGO_SUB_AREA"],
-        "FERRAMENTA": ["NOME", "CODIGO", "ATIVO"],
-        "INTERESSE": ["NOME", "CODIGO"],
-        "MOTIVACAO": ["NOME", "CODIGO"],
-        "REALIZACAO": ["NOME", "CODIGO"],
-        "FORMACAO_SUPERIOR": ["NOME", "CODIGO", "NIVEL", "DATA_FIM", "MODALIDADE", "NATUREZA", "URL", "ESTADO", "NOME_INSTITUICAO_ENSINO"]
+{"loggername" : "people_analytics",
+"csv_file" : "/home/f4119597/Downloads/temp-master/res_final_query_all.csv",
+"csv_file_delimiter" : ";",
+"csv_reader_encoding" : "utf-8",
+"elastic_hosts" : ["localhost:9200"],
+"es_index" : "people_analytics",
+"es_doc_type" : "curriculo",
+"es_id_key" : "matricula",
+"id_column" : "MATRICULA_FUNCIONARIO",
+"outter_key" : "curriculo",
+"mapping" : {
+    "CAPACIDADE": ["NOME", "ATIVO", "CODIGO"],
+    "CONHECIMENTO": ["NOME", "CODIGO", "NIVEL", "CODIGO_AREA", "CODIGO_SUB_AREA"],
+    "FERRAMENTA": ["NOME", "CODIGO", "ATIVO"],
+    "INTERESSE": ["NOME", "CODIGO"],
+    "MOTIVACAO": ["NOME", "CODIGO"],
+    "REALIZACAO": ["NOME", "CODIGO"],
+    "FORMACAO_SUPERIOR": ["NOME", "CODIGO", "NIVEL", "DATA_FIM", "MODALIDADE", "NATUREZA", "URL", "ESTADO", "NOME_INSTITUICAO_ENSINO"]
     }
-    
 }
