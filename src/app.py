@@ -3,7 +3,7 @@
 import json
 import os
 import logging
-from time import sleep, time
+from time import time
 import pandas as pd
 import csv
 from elasticsearch import Elasticsearch, ElasticsearchException, helpers
@@ -70,52 +70,55 @@ def elastic_bulk_index (index: str, docType: str, data: list, elastic, _id_key: 
     return helpers.bulk(client=elastic, actions=bulk)[0]
 
 def sentRate(total: int, good: int):
-    acc = 100.0 - ( (total - good)/total)
+    acc = 100.0 - ((total - good)/total)
     logger.info('Delivery rate {}%'.format(acc))
     return acc
 
-def export_json(obj: dict, file_name: str):
-    with open('curriculum.json', 'w') as json_file:
-        json.dump(obj, json_file)
-
+def export_json(obj: dict, yes_or_no: str):
+    if yes_or_no.lower() == "yes":
+        from datetime import datetime
+        file_name = 'dump_{}.json'.format(datetime.now()).replace(" ", "_")
+        with open('dump/{}'.format(file_name), 'w') as json_file:
+            json.dump(obj, json_file)
+            logger.info('Generated {}'.format(file_name))
+    return yes_or_no
+        
 # ==================================================================== #
 # config variables
 # ==================================================================== #
+
 with open('config.json') as config_file:
     config = json.load(config_file)
 
 loggername = config['loggername']
-
 csv_file = config['csv_file']
 csv_file_delimiter = config['csv_file_delimiter']
 csv_reader_encoding = config['csv_reader_encoding']
-
 elastic_hosts = config['elastic_hosts']
 es_index = config['es_index']
 es_doc_type = config['es_doc_type']
 es_id_key = config['es_id_key']
-
 mapping = config['mapping']
-
 id_column = config['id_column']
 outter_key = config['outter_key']
+dump = config['dump']
 
 # ==================================================================== #
 # main
 # ==================================================================== #
-
 
 if __name__ == '__main__':
 
     logger = logger(loggername)
     logger.info('START PROCESS')
     ts1 = time()
-    # es = Elasticsearch(hosts=elastic_hosts)
-    # df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
-    # logger.info('Loaded columns: {}'.format(df.columns))
-    # obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key)
-    # bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
-    # sr = sentRate(total=len(obj), good=bulk)
-    logger.info('Runtime: {} seconds'.format(time()-ts1))
-    logger.info('END PROCESS')
     
+    es = Elasticsearch(hosts=elastic_hosts)
+    df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
+    obj = curriculum_json_generator(df=df[:100], field_map=mapping, id_column=id_column, outter_key=outter_key)
+    bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
+    sr = sentRate(total=len(obj), good=bulk)
+    export_json(obj=obj, yes_or_no=dump)
+
+    logger.info('Runtime: {0:.2f} seconds'.format(time()-ts1))
+    logger.info('END PROCESS')
