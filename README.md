@@ -52,9 +52,8 @@ $ ./app.py
 | 222  | category2 | cat2_val4 | `Null`   | `Null`  | Black  | 440.00 |
 | 222  | category2 | cat2_val5 | `Null`   | `Null`  | Yellow | 550.00 |
 | 222  | category2 | cat2_val6 | `Null`   | `Null`  | Yellow | 660.00 |
-||
 
-- Just configure it to:
+- Just configure (`config.json`) it to:
 
 ```
 {
@@ -121,4 +120,11 @@ $ ./app.py
 ```
 
 # Disclaimer
-- If all you want is the output `json` file, just coment (`'#'`) lines `121`and `126` on `src/app.py`
+
+- If all you want is the output `json` file, just coment (`'#'`) the following lines in `src/app.py`:
+
+    `# es = Elasticsearch(hosts=elastic_hosts)`
+
+    `# bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)`
+
+    `# sr = sentRate(total=len(obj), good=bulk)`
