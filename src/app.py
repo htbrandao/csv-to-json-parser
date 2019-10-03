@@ -15,6 +15,7 @@ from elasticsearch import Elasticsearch, ElasticsearchException, helpers
 def logger(name: str):
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
+    logging.basicConfig(filename='app.log', filemode='w')
     handler = logging.StreamHandler()
     formatter = logging.Formatter('%(levelname)s %(asctime)s %(name)s %(message)s')
     handler.setFormatter(formatter)
@@ -22,7 +23,7 @@ def logger(name: str):
     return logger
 
 def load_csv(filepath: str, delimiter: str, header='infer', encoding='utf-8'):
-    return pd.read_csv(filepath, delimiter=delimiter, header=header, encoding=encoding)   
+    return pd.read_csv(filepath, delimiter=delimiter, header=header, encoding=encoding, dtype=object)
 
 def find_ids(df, id_column: str):
     return list(set(df[id_column]))
@@ -102,16 +103,18 @@ outter_key = config['outter_key']
 # main
 # ==================================================================== #
 
+
 if __name__ == '__main__':
 
     logger = logger(loggername)
     logger.info('START PROCESS')
     ts1 = time()
-    es = Elasticsearch(hosts=elastic_hosts)
-    df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
-    obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key)
-    bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
-    sr = sentRate(total=len(obj), good=bulk)
+    # es = Elasticsearch(hosts=elastic_hosts)
+    # df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
+    # logger.info('Loaded columns: {}'.format(df.columns))
+    # obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key)
+    # bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
+    # sr = sentRate(total=len(obj), good=bulk)
     logger.info('Runtime: {} seconds'.format(time()-ts1))
     logger.info('END PROCESS')
     
