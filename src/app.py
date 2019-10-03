@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-import json
 import os
-import logging
-from time import time
-import pandas as pd
 import csv
+import json
+import logging
+import pandas as pd
+from time import time
+from datetime import datetime
 from elasticsearch import Elasticsearch, ElasticsearchException, helpers
 
 # ==================================================================== #
@@ -60,6 +61,7 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
                                                                                 category=key,
                                                                                 category_column=category_column,
                                                                                 related_features=field_map[key])[key.lower()]
+                f_info['@timestamp'] = datetime.now().strftime("%m/%d/%Y'T'%H:%M:%SZ")
             except:
                 logger.error('id: \'{}\' key: \'{}\''.format(f_id, key))
         out.append(f_info)
@@ -77,7 +79,6 @@ def sentRate(total: int, good: int):
 
 def dump_json(obj: dict, yes_or_no: str):
     if yes_or_no.lower() == "yes":
-        from datetime import datetime
         file_name = 'dump_{}.json'.format(datetime.now()).replace(" ", "_")
         with open('dump/{}'.format(file_name), 'w') as json_file:
             json.dump(obj, json_file)
