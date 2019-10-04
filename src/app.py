@@ -53,7 +53,7 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
     logger.info('Found \'{}\' units on \'{}\' to process'.format(len(id_list), id_column))
     out = []
     for f_id in id_list:
-        f_info = {'matricula': str(f_id), outter_key: {} }
+        f_info = {'matricula': str(f_id), '@timestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"), outter_key: {} }
         f_df = single_id_df(df=df, id_column=id_column, id_value=f_id)
         for key in field_map.keys():
             try:
@@ -61,7 +61,6 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
                                                                                 category=key,
                                                                                 category_column=category_column,
                                                                                 related_features=field_map[key])[key.lower()]
-                f_info['@timestamp'] = datetime.now().strftime("%m/%d/%Y'T'%H:%M:%SZ")
             except:
                 logger.error('id: \'{}\' key: \'{}\''.format(f_id, key))
         out.append(f_info)
