@@ -50,7 +50,7 @@ def extract_features_by_category(single_id_df, category: str, related_features: 
 
 def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: str, category_column: str):
     id_list = find_ids(df=df, id_column=id_column)
-    logger.info('Found \'{}\' units on \'{}\' to process'.format(len(id_list), id_column))
+    logger.info('Found {} units on \'{}\' to process'.format(len(id_list), id_column))
     out = []
     for f_id in id_list:
         f_info = {'matricula': str(f_id), '@timestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"), outter_key: {} }
@@ -62,9 +62,9 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
                                                                                 category_column=category_column,
                                                                                 related_features=field_map[key])[key.lower()]
             except:
-                logger.error('id: \'{}\' key: \'{}\''.format(f_id, key))
+                logger.error('id: {} key: \'{}\''.format(f_id, key))
         out.append(f_info)
-    logger.info('Generated: \'{}\'. Delta: \'{}\''.format(len(out), len(out)-len(id_list)))
+    logger.info('Generated: {}. Delta: {}'.format(len(out), len(out)-len(id_list)))
     return out
 
 def elastic_bulk_index (index: str, docType: str, data: list, elastic, _id_key: str):
