@@ -128,3 +128,9 @@ $ ./app.py
     `# bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)`
 
     `# sr = sentRate(total=len(obj), good=bulk)`
+
+- Brig ELK up
+
+`$ docker run -p 9200:9200 -p 9300:9300 --name elastic -e "discovery.type=single-node" -d docker.elastic.co/elasticsearch/elasticsearch:7.3.2`
+
+`$ docker run --link elastic:elasticsearch --name kibana -p 5601:5601 -d docker.elastic.co/kibana/kibana:7.3.2`
