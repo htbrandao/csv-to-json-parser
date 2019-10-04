@@ -8,7 +8,7 @@
 "csv_reader_encoding" : "utf-8",
 "elastic_hosts" : ["localhost:9200"],
 "es_index" : "people_analytics",
-"es_doc_type" : "curriculo",
+"es_doc_type" : "_doc",
 "es_id_key" : "matricula",
 "id_column" : "MATRICULA_FUNCIONARIO",
 "outter_key" : "curriculo",

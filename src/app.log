@@ -194,3 +194,6 @@ INFO 2019-10-04 10:18:20,590 people_analytics Generated: 447. Delta: 0
 INFO 2019-10-04 10:18:21,128 people_analytics Delivery rate 100.0%
 INFO 2019-10-04 10:18:21,129 people_analytics Runtime: 69.19 seconds
 INFO 2019-10-04 10:18:21,129 people_analytics END PARSING
+INFO 2019-10-04 14:29:56,289 people_analytics START PARSING
+INFO 2019-10-04 14:29:56,290 people_analytics Loading /home/f4119597/Downloads/Arquivos_Finais/201910031133__0000000_A_1999999.csv
+INFO 2019-10-04 14:29:56,640 people_analytics Found 645 units on 'MATRICULA_FUNCIONARIO' to process
