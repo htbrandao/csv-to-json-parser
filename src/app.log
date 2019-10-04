@@ -171,3 +171,26 @@ INFO 2019-10-04 10:15:06,426 people_analytics Generated: '447'. Delta: '0'
 INFO 2019-10-04 10:15:06,992 people_analytics Delivery rate 100.0%
 INFO 2019-10-04 10:15:06,992 people_analytics Runtime: 68.23 seconds
 INFO 2019-10-04 10:15:06,993 people_analytics END PARSING
+INFO 2019-10-04 10:17:11,937 people_analytics START PARSING
+INFO 2019-10-04 10:17:11,937 people_analytics Loading /home/f4119597/Downloads/Arquivos_Finais/201910031133__0000000_A_1999999.csv
+INFO 2019-10-04 10:17:12,230 people_analytics Found 645 units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-04 10:17:22,048 people_analytics Generated: 645. Delta: 0
+INFO 2019-10-04 10:17:22,806 people_analytics Delivery rate 100.0%
+INFO 2019-10-04 10:17:22,806 people_analytics Loading /home/f4119597/Downloads/Arquivos_Finais/201910031134__2000000_A_5999999.csv
+INFO 2019-10-04 10:17:23,416 people_analytics Found 1305 units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-04 10:17:50,161 people_analytics Generated: 1305. Delta: 0
+INFO 2019-10-04 10:17:52,006 people_analytics Delivery rate 100.0%
+INFO 2019-10-04 10:17:52,007 people_analytics Loading /home/f4119597/Downloads/Arquivos_Finais/201910031136__6000000_A_6999999.csv
+INFO 2019-10-04 10:17:52,332 people_analytics Found 616 units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-04 10:18:01,188 people_analytics Generated: 616. Delta: 0
+INFO 2019-10-04 10:18:01,993 people_analytics Delivery rate 100.0%
+INFO 2019-10-04 10:18:01,993 people_analytics Loading /home/f4119597/Downloads/Arquivos_Finais/201910031137__7000000_A_8999999.csv
+INFO 2019-10-04 10:18:02,379 people_analytics Found 741 units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-04 10:18:13,731 people_analytics Generated: 741. Delta: 0
+INFO 2019-10-04 10:18:14,614 people_analytics Delivery rate 100.0%
+INFO 2019-10-04 10:18:14,614 people_analytics Loading /home/f4119597/Downloads/Arquivos_Finais/201910031138__9000000_A_9999999.csv
+INFO 2019-10-04 10:18:14,861 people_analytics Found 447 units on 'MATRICULA_FUNCIONARIO' to process
+INFO 2019-10-04 10:18:20,590 people_analytics Generated: 447. Delta: 0
+INFO 2019-10-04 10:18:21,128 people_analytics Delivery rate 100.0%
+INFO 2019-10-04 10:18:21,129 people_analytics Runtime: 69.19 seconds
+INFO 2019-10-04 10:18:21,129 people_analytics END PARSING
