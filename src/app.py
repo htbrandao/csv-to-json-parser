@@ -4,6 +4,7 @@ import os
 import csv
 import json
 import logging
+import unicodedata
 import pandas as pd
 from time import time
 from datetime import datetime
@@ -37,8 +38,12 @@ def id_count(df, id_column: str):
 def single_id_df(df, id_column: str, id_value: any):
     return df[df[id_column] == id_value]
 
+def remove_accents(input_str):
+    nkfd_form = unicodedata.normalize('NFKD', input_str)
+    return u"".join([c for c in nkfd_form if not unicodedata.combining(c)])
+
 def extract_features_by_category(single_id_df, category: str, related_features: list, category_column: str):
-    lc = [ [str(reg[i]).rstrip().lower() for i in range(len(reg)) ] 
+    lc = [[remove_accents(str(reg[i]).rstrip().lower()) for i in range(len(reg)) ] 
           for reg in single_id_df[single_id_df[category_column] == category][related_features].values ]
     related_features = [feat.lower() for feat in related_features]
     out = []
@@ -57,10 +62,9 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
         f_df = single_id_df(df=df, id_column=id_column, id_value=f_id)
         for key in field_map.keys():
             try:
-                f_info[outter_key][key.lower()] = extract_features_by_category(single_id_df=f_df,
-                                                                                category=key,
-                                                                                category_column=category_column,
-                                                                                related_features=field_map[key])[key.lower()]
+                data = extract_features_by_category(single_id_df=f_df, category=key, category_column=category_column,
+                                                    related_features=field_map[key])[key.lower()]
+                f_info[outter_key][key.lower()] = data
             except:
                 logger.error('id: {} key: \'{}\''.format(f_id, key))
         out.append(f_info)
@@ -103,7 +107,7 @@ category_column = config['category_column']
 mapping = config['mapping']
 id_column = config['id_column']
 outter_key = config['outter_key']
-dump = config['dump']
+dump_flag = config['dump']
 
 # ==================================================================== #
 # main
@@ -118,8 +122,8 @@ if __name__ == '__main__':
     for csv_file in csv_files:
         df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
         obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key, category_column=category_column)
-        # bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
-        # sr = sentRate(total=len(obj), good=bulk)
-        dump_json(obj=obj, yes_or_no=dump)
+        bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
+        sr = sentRate(total=len(obj), good=bulk)
+        dump_json(obj=obj, yes_or_no=dump_flag)
     logger.info('Runtime: {0:.2f} seconds'.format(time()-ts1))
     logger.info('END PARSING')
