@@ -57,6 +57,10 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
         f_df = single_id_df(df=df, id_column=id_column, id_value=f_id)
         for key in field_map.keys():
             try:
+                #
+                # method to treat fields case by case: "parse_field"
+                # f_info[outter_key][key.lower()] = parse_field(field=key.lower(), data=extract_features ...)
+                #
                 f_info[outter_key][key.lower()] = extract_features_by_category(single_id_df=f_df,
                                                                                 category=key,
                                                                                 category_column=category_column,
