@@ -107,7 +107,7 @@ category_column = config['category_column']
 mapping = config['mapping']
 id_column = config['id_column']
 outter_key = config['outter_key']
-dump_flag = config['dump']
+dump_flag = config['dump_flag']
 
 # ==================================================================== #
 # main
