@@ -1,0 +1,5 @@
+.vscode/
+jupyter/.ipynb_checkpoints/
+src/app.log
+src/dump/dum_*.json
+src/__pycache__/
