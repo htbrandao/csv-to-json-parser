@@ -120,7 +120,7 @@ $ ./app.py
 
 # Disclaimer
 
-- App logs and appends to `/tmp/csv-to-json.log`
+- App logs and appends to `/tmp/$LOGGER_NAME.log`
 - App dumps `.json` output files to `/tmp/csv-to-json-dump_$TIMESTAMP.json`
 
 - Bring ELK up

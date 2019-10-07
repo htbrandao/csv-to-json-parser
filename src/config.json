@@ -1,4 +1,4 @@
-{"loggername" : "people_analytics",
+{"logger_name" : "csv-to-json",
 "csv_file" : ["/home/f4119597/Downloads/Arquivos_Finais/201910031133__0000000_A_1999999.csv",
                 "/home/f4119597/Downloads/Arquivos_Finais/201910031134__2000000_A_5999999.csv",
                 "/home/f4119597/Downloads/Arquivos_Finais/201910031136__6000000_A_6999999.csv",
