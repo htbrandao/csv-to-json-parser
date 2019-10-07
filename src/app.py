@@ -57,10 +57,6 @@ def curriculum_json_generator(df, field_map: dict, id_column: str, outter_key: s
         f_df = single_id_df(df=df, id_column=id_column, id_value=f_id)
         for key in field_map.keys():
             try:
-                #
-                # method to treat fields case by case: "parse_field"
-                # f_info[outter_key][key.lower()] = parse_field(field=key.lower(), data=extract_features ...)
-                #
                 f_info[outter_key][key.lower()] = extract_features_by_category(single_id_df=f_df,
                                                                                 category=key,
                                                                                 category_column=category_column,
@@ -122,8 +118,8 @@ if __name__ == '__main__':
     for csv_file in csv_files:
         df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
         obj = curriculum_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key, category_column=category_column)
-        bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
-        sr = sentRate(total=len(obj), good=bulk)
-        dump_json(obj=obj, yes_or_no=dump)
+        # bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
+        # sr = sentRate(total=len(obj), good=bulk)
+        # dump_json(obj=obj, yes_or_no=dump)
     logger.info('Runtime: {0:.2f} seconds'.format(time()-ts1))
     logger.info('END PARSING')
