@@ -56,7 +56,7 @@ $ ./app.py
 
 - Just configure (`config.json`) it to:
 
-```
+<!-- ```
 {"loggername" : "mylogger",
 "csv_file" : ["path/to/file01.csv", "path/to/file02.csv"],
 "csv_file_delimiter" : ";",
@@ -73,48 +73,64 @@ $ ./app.py
     "paint": ["item", "color_available", "cost"]
     },
 "dump": "Yes"}
+``` -->
 ```
+{"loggername" : "mylogger",
+"csv_file" : ["path/to/file01.csv", "path/to/file02.csv"],
+"csv_file_delimiter" : ";",
+"csv_reader_encoding" : "utf-8",
+"elastic_hosts" : ["localhost:9200"],
+"es_index" : "my_solution",
+"es_doc_type" : "table_to_json",
+"es_id_key" : "item_id",
+"id_column" : "item_id",
+"category_column": "catgr",
+"mapping" : {
+    "song": ["item", "available"],
+    "paint": ["item", "color_available", "cost"]
+    },
+"dump": "Yes"}
+```
+
 
 - And the output will be something like:
 
 ```
 [
-    {"id": "33377 ",
-    "mytable": {
-        "song": [
-                    {"item": "guitar", "available": "yes"},
-                    {"item": "electric guitar", "available": "no"},
-                    {"item": "violin", "available": "no"},
-                    {"item": "piano", "available": "yes"}
-                    ],
-        "paint": [
-                    {"item": "light", "size": "small", "color_available": "Cyan", "cost": "110.00"},
-                    {"item": "dark", "size": "small", "color_available": "Cyan", "cost": "220.00"},
-                    {"item": "car", "size": "large", "color_available": "Black", "cost": "330.00"},
-                    {"item": "song", "size": "medium", "color_available": "Black", "cost": "440.00"},
-                    {"item": "indoor", "size": "large", "color_available": "Yellow", "cost": "550.00"},
-                    {"item": "bicycle", "size": "medium", "color_available": "Yellow", "cost": "660.00"}
-                    ]
-                }
+    {
+    "id": "33377 ",
+    "song": [
+                {"item": "guitar", "available": "yes"},
+                {"item": "electric guitar", "available": "no"},
+                {"item": "violin", "available": "no"},
+                {"item": "piano", "available": "yes"}
+            ],
+    "paint": [
+                {"item": "light", "size": "small", "color_available": "Cyan", "cost": "110.00"},
+                {"item": "dark", "size": "small", "color_available": "Cyan", "cost": "220.00"},
+                {"item": "car", "size": "large", "color_available": "Black", "cost": "330.00"},
+                {"item": "song", "size": "medium", "color_available": "Black", "cost": "440.00"},
+                {"item": "indoor", "size": "large", "color_available": "Yellow", "cost": "550.00"},
+                {"item": "bicycle", "size": "medium", "color_available": "Yellow", "cost": "660.00"}
+            ]
     },
-    {"id": "55112 ",
-    "mytable": {
-        "song": [
-                    {"item": "guitar", "available": "yes"},
-                    {"item": "electric guitar", "available": "no"},
-                    {"item": "violin", "available": "no"},
-                    {"item": "piano", "available": "yes"}
-                    ],
-        "paint": [
-                    {"item": "light", "size": "small", "color_available": "Cyan", "cost": "110.00"},
-                    {"item": "dark", "size": "small", "color_available": "Cyan", "cost": "220.00"},
-                    {"item": "car", "size": "large", "color_available": "Black", "cost": "330.00"},
-                    {"item": "song", "size": "medium", "color_available": "Black", "cost": "440.00"},
-                    {"item": "indoor", "size": "large", "color_available": "Yellow", "cost": "550.00"},
-                    {"item": "bicycle", "size": "medium", "color_available": "Yellow", "cost": "660.00"}
-                    ]
-                }
-    }    
+    {
+    "id": "55112 ",
+    "song": [
+                {"item": "guitar", "available": "yes"},
+                {"item": "electric guitar", "available": "no"},
+                {"item": "violin", "available": "no"},
+                {"item": "piano", "available": "yes"}
+            ],
+    "paint": [
+                {"item": "light", "size": "small", "color_available": "Cyan", "cost": "110.00"},
+                {"item": "dark", "size": "small", "color_available": "Cyan", "cost": "220.00"},
+                {"item": "car", "size": "large", "color_available": "Black", "cost": "330.00"},
+                {"item": "song", "size": "medium", "color_available": "Black", "cost": "440.00"},
+                {"item": "indoor", "size": "large", "color_available": "Yellow", "cost": "550.00"},
+                {"item": "bicycle", "size": "medium", "color_available": "Yellow", "cost": "660.00"}
+            ]
+    }
 ]
 ```
 
