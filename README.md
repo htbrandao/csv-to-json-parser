@@ -58,7 +58,7 @@ $ ./app.py
 
 ```
 {"loggername" : "mylogger",
-"csv_file" : ["path/to/file.csv"],
+"csv_file" : ["path/to/file01.csv", "path/to/file02.csv"],
 "csv_file_delimiter" : ";",
 "csv_reader_encoding" : "utf-8",
 "elastic_hosts" : ["localhost:9200"],
