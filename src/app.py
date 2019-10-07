@@ -15,7 +15,7 @@ from elasticsearch import Elasticsearch, ElasticsearchException, helpers
 
 def logger(name: str):
     log_format = '%(levelname)s %(asctime)s %(name)s %(message)s'
-    logging.basicConfig(filename='app.log', filemode='a', format=log_format)
+    logging.basicConfig(filename='/tmp/app.log', filemode='a', format=log_format)
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     handler = logging.StreamHandler()
