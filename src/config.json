@@ -7,7 +7,7 @@
 "csv_file_delimiter" : ";",
 "csv_reader_encoding" : "utf-8",
 "elastic_hosts" : ["localhost:9200"],
-"es_index" : "people_analytics_stg",
+"es_index" : "stg_people_analytics",
 "es_doc_type" : "_doc",
 "es_id_key" : "id",
 "id_column" : "MATRICULA_FUNCIONARIO",
