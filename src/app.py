@@ -169,7 +169,7 @@ if __name__ == '__main__':
     
         bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
     
-        sr = sent_rate(total=len(obj), good=bulk)
+        sent_rate(total=len(obj), good=bulk)
     
         dump_json(obj=obj, yes_or_no=dump_flag)
     
