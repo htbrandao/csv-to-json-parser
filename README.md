@@ -30,7 +30,7 @@ $ ./app.py
 
 - Sometimes you do a query and something like this comes out:
 
-| item_id | catgr  | item            | available       | size             | color_available | cost            |
+| item_id | category  | item            | available       | size             | color_available | cost            |
 | :--:    | :--:   | :--:            | :--:            | :--:             | :--:            | :--:            |
 | 33377   | song   | guitar          | yes             | `not important`  | `not important` | `not important` |
 | 33377   | song   | electric guitar | no              | `not important`  | `not important` | `not important` |
@@ -67,7 +67,7 @@ $ ./app.py
 "es_id_key" : "item_id",
 "id_column" : "item_id",
 "outter_key" : "mytable",
-"category_column": "catgr",
+"category_column": "category",
 "mapping" : {
     "song": ["item", "available"],
     "paint": ["item", "color_available", "cost"]
