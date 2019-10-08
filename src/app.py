@@ -78,7 +78,8 @@ def extract_features_by_category(single_id_df, category: str, related_features: 
     category_dict = {category_key: out}
     return category_dict #dict
 
-def csv_to_json_generator(df, field_map: dict, id_column: str, outter_key: str, category_column: str):
+# def csv_to_json_generator(df, field_map: dict, id_column: str, outter_key: str, category_column: str):
+def csv_to_json_generator(df, field_map: dict, id_column: str, category_column: str):
     """
     Creates a dictionary/json structure for a `single id dataframe` extracting content using the
     `extract_features_by_category` function.
@@ -145,7 +146,7 @@ with open('config.json') as config_file:
     category_column = config['category_column']
     mapping = config['mapping']
     id_column = config['id_column']
-    outter_key = config['outter_key']
+    # outter_key = config['outter_key']
     dump_flag = config['dump_flag']
 
 # ==================================================================== #
@@ -165,7 +166,7 @@ if __name__ == '__main__':
     
         df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
     
-        obj = csv_to_json_generator(df=df, field_map=mapping, id_column=id_column, outter_key=outter_key, category_column=category_column)
+        obj = csv_to_json_generator(df=df, field_map=mapping, id_column=id_column, category_column=category_column)
     
         bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
     
