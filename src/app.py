@@ -78,7 +78,6 @@ def extract_features_by_category(single_id_df, category: str, related_features: 
     category_dict = {category_key: out}
     return category_dict #dict
 
-# def csv_to_json_generator(df, field_map: dict, id_column: str, outter_key: str, category_column: str):
 def csv_to_json_generator(df, field_map: dict, id_column: str, category_column: str):
     """
     Creates a dictionary/json structure for a `single id dataframe` extracting content using the
@@ -88,14 +87,12 @@ def csv_to_json_generator(df, field_map: dict, id_column: str, category_column: 
     logger.info('Found {} units on \'{}\' to process'.format(len(id_list), id_column))
     out = []
     for f_id in id_list:
-        # f_info = {'id': str(f_id), '@timestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"), outter_key: {}}
         f_info = {'id': str(f_id), '@timestamp': datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")}
         f_df = single_id_df(df=df, id_column=id_column, id_value=f_id)
         for key in field_map.keys():
             try:
                 data = extract_features_by_category(single_id_df=f_df, category=key, category_column=category_column,
                                                     related_features=field_map[key])[key.lower()]
-                # f_info[outter_key][key.lower()] = data
                 f_info[key.lower()] = data
             except:
                 logger.error('id: {} key: \'{}\''.format(f_id, key))
