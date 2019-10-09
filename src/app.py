@@ -14,7 +14,7 @@ from elasticsearch import Elasticsearch, ElasticsearchException, helpers
 # functions
 # ==================================================================== #
 
-def logger(name: str):
+def create_logger(name: str):
     """
     Sets up a logger, both on the terminal stdout and on the file system under the /tmp folder.
     """
@@ -129,50 +129,42 @@ def dump_json(obj: dict, yes_or_no: str):
             logger.info('Generated {}'.format(file_name))
     return yes_or_no #string
 
-# ==================================================================== #
-# config variables
-# ==================================================================== #
+# ================================================================================================ #
 
-with open('config.json') as config_file:
-    config = json.load(config_file)
-    logger_name = config['logger_name']
-    csv_files = config['csv_file']
-    csv_file_delimiter = config['csv_file_delimiter']
-    csv_reader_encoding = config['csv_reader_encoding']
-    elastic_hosts = config['elastic_hosts']
-    es_index = config['es_index']
-    es_doc_type = config['es_doc_type']
-    es_id_key = config['es_id_key']
-    category_column = config['category_column']
-    mapping = config['mapping']
-    id_column = config['id_column']
-    # outter_key = config['outter_key']
-    dump_flag = config['dump_flag']
+def main():
+    es = Elasticsearch(hosts=elastic_hosts)
+    for csv_file in csv_files:
+        df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
+        obj = csv_to_json_generator(df=df, field_map=mapping, id_column=id_column, category_column=category_column)
+        bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
+        sent_rate(total=len(obj), good=bulk)
+        dump_json(obj=obj, yes_or_no=dump_flag)
 
-# ==================================================================== #
-# main
-# ==================================================================== #
 
 if __name__ == '__main__':
 
-    logger = logger(logger_name)
-    logger.info('START PARSING')
-    
-    ts1 = time()
-    
-    es = Elasticsearch(hosts=elastic_hosts)
+    with open('config.json') as config_file:
+        config = json.load(config_file)
+        logger_name = config['logger_name']
+        csv_files = config['csv_file']
+        csv_file_delimiter = config['csv_file_delimiter']
+        csv_reader_encoding = config['csv_reader_encoding']
+        elastic_hosts = config['elastic_hosts']
+        es_index = config['es_index']
+        es_doc_type = config['es_doc_type']
+        es_id_key = config['es_id_key']
+        category_column = config['category_column']
+        mapping = config['mapping']
+        id_column = config['id_column']
+        # outter_key = config['outter_key']
+        dump_flag = config['dump_flag']
 
-    for csv_file in csv_files:
-    
-        df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
-    
-        obj = csv_to_json_generator(df=df, field_map=mapping, id_column=id_column, category_column=category_column)
-    
-        bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
-    
-        sent_rate(total=len(obj), good=bulk)
-    
-        dump_json(obj=obj, yes_or_no=dump_flag)
-    
+    logger = create_logger(logger_name)
+    logger.info('START PARSING')
+
+    ts1 = time()
+
+    main()
+
     logger.info('Runtime: {0:.2f} seconds'.format(time()-ts1))
     logger.info('END PARSING')
