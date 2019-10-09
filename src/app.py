@@ -153,7 +153,6 @@ if __name__ == '__main__':
         category_column = config['category_column']
         mapping = config['mapping']
         id_column = config['id_column']
-        # outter_key = config['outter_key']
         dump_flag = config['dump_flag']
 
     logger = create_logger(logger_name)
