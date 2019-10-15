@@ -21,9 +21,9 @@ $ ./app.py
 
 - columns: `field_map`, `id_column`
 
-- output json: `outter_key`
+<!--- output json: `outter_key`-->
 
-- dumo file: `dump`
+- dump file: `dump`
 
 
 # Example
