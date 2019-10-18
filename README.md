@@ -17,13 +17,11 @@ $ ./app.py
 
 - csv file: `csv_file`, `csv_file_delimiter`, `csv_reader_encoding`
 
-- elasticsearch: `elastic_hosts`, `es_index`, `es_doc_type`, `es_id_key`
+- elasticsearch: `elastic_hosts`, `es_index`, `es_id_key`
 
 - columns: `field_map`, `id_column`
 
-<!-- - output json: `outter_key` -->
-
-- dumo file: `dump`
+- dump file: `dump`
 
 
 # Example
@@ -56,24 +54,6 @@ $ ./app.py
 
 - Just configure (`config.json`) it to:
 
-<!-- ```
-{"loggername" : "mylogger",
-"csv_file" : ["path/to/file01.csv", "path/to/file02.csv"],
-"csv_file_delimiter" : ";",
-"csv_reader_encoding" : "utf-8",
-"elastic_hosts" : ["localhost:9200"],
-"es_index" : "my_solution",
-"es_doc_type" : "table_to_json",
-"es_id_key" : "item_id",
-"id_column" : "item_id",
-"outter_key" : "mytable",
-"category_column": "category",
-"mapping" : {
-    "song": ["item", "available"],
-    "paint": ["item", "color_available", "cost"]
-    },
-"dump": "Yes"}
-``` -->
 ```
 {"loggername" : "mylogger",
 "csv_file" : ["path/to/file01.csv", "path/to/file02.csv"],
@@ -81,7 +61,6 @@ $ ./app.py
 "csv_reader_encoding" : "utf-8",
 "elastic_hosts" : ["localhost:9200"],
 "es_index" : "my_solution",
-"es_doc_type" : "table_to_json",
 "es_id_key" : "item_id",
 "id_column" : "item_id",
 "category_column": "catgr",
