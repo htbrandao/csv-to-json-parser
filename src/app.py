@@ -100,11 +100,11 @@ def csv_to_json_generator(df, field_map: dict, id_column: str, category_column: 
     logger.info('Generated: {}. Delta: {}'.format(len(out), len(out)-len(id_list)))
     return out #list(dict)
 
-def elastic_bulk_index (index: str, docType: str, data: list, elastic, _id_key: str):
+def elastic_bulk_index (index: str, data: list, elastic, _id_key: str):
     """
     Sends collection of data to the desired Elasticsearch cluster/node.
     """
-    bulk = [{"_index": index, "_type": docType, "_id": reg[_id_key], "_source": reg} for reg in data]
+    bulk = [{"_index": index, "_type": docType, "_doc": reg[_id_key], "_source": reg} for reg in data]
     return helpers.bulk(client=elastic, actions=bulk)[0] #int
 
 def sent_rate(total: int, good: int):
@@ -133,7 +133,7 @@ def main():
     for csv_file in csv_files:
         df = load_csv(filepath=csv_file, delimiter=csv_file_delimiter, header='infer', encoding=csv_reader_encoding)
         obj = csv_to_json_generator(df=df, field_map=mapping, id_column=id_column, category_column=category_column)
-        bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)
+        bulk = elastic_bulk_index(index=es_index, data=obj, _id_key=es_id_key, elastic=es)
         sent_rate(total=len(obj), good=bulk)
         dump_json(obj=obj, yes_or_no=dump_flag)
 
@@ -148,7 +148,6 @@ if __name__ == '__main__':
         csv_reader_encoding = config['csv_reader_encoding']
         elastic_hosts = config['elastic_hosts']
         es_index = config['es_index']
-        es_doc_type = config['es_doc_type']
         es_id_key = config['es_id_key']
         category_column = config['category_column']
         mapping = config['mapping']
