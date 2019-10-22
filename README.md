@@ -131,3 +131,5 @@ $ ./app.py
     `# bulk = elastic_bulk_index(index=es_index, docType=es_doc_type, data=obj, _id_key=es_id_key, elastic=es)`
 
     `# sr = sentRate(total=len(obj), good=bulk)`
+
+##### Enjoy! &#8718;
