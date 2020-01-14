@@ -26,7 +26,7 @@ $ ./app.py
 
 # Example
 
-- Sometimes you do a query and something like this comes out:
+- Sometimes you perform a query and something like this comes out:
 
 | item_id | category  | item            | available       | size             | color_available | cost            |
 | :--:    | :--:   | :--:            | :--:            | :--:             | :--:            | :--:            |
