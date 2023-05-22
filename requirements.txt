@@ -1,4 +1,4 @@
 pandas==0.25.1
 elasticsearch==7.0.5
-requests==2.22.0
+requests==2.31.0
 chardet==3.0.4
